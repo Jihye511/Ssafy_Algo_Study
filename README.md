@@ -2,13 +2,18 @@
 SSAFY 13th 알고리즘 스터디
 
 ## ✏️Curriculum
-[IT기업 및 대기업 계열사 코테보면서 비슷했던 문제들(지속적으로 업데이트 중)](https://www.acmicpc.net/workbook/view/8708)
 - 실버3 ~ 골드2 순서대로 진행
 
+[IT기업 및 대기업 계열사 코테보면서 비슷했던 문제들(지속적으로 업데이트 중)](https://www.acmicpc.net/workbook/view/8708)
+
+</br>
+
 ## 🗓 일정표
+- 문제 이름 클릭하면 문제 페이지로 이동합니다.
 
 [🗓날짜별 문제 정리](https://seasoned-peripheral-395.notion.site/22aaa43d3dea805392adca1bb175d53c?source=copy_link)
 
+</br>
 
 ## 📌Rule
 [ :school:  오프라인]
