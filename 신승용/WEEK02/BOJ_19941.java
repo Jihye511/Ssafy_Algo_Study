@@ -26,7 +26,7 @@ public class BOJ_19941 {
             char cur = arr[i];
             if(cur == 'P'){
                 for (int j = i-K; j <= i+K; j++) {
-                    if(j<N && !visited[j] && arr[j]=='H'){
+                    if(j>=0 && j<N && !visited[j] && arr[j]=='H'){
                         visited[j] = true;
                         count++;
                         break;
