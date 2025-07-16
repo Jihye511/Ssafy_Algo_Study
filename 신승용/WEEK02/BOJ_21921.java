@@ -1,5 +1,3 @@
-package 신승용.WEEK01;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
