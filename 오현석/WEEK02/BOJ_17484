@@ -1,0 +1,61 @@
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+    static final int INF = 1000 * 100 + 1; 
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
+        int[][] map = new int[N][M];
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        int[][][] dp = new int[N][M][3];
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < M; j++)
+                for (int d = 0; d < 3; d++)
+                    dp[i][j][d] = INF;
+
+        for (int j = 0; j < M; j++) {
+            for (int d = 0; d < 3; d++) {
+                dp[0][j][d] = map[0][j];
+            }
+        }
+
+        for (int i = 1; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                for (int d = 0; d < 3; d++) { 
+                    int prevJ = j + (d - 1); 
+
+                    if (prevJ < 0 || prevJ >= M) continue;
+
+                    for (int prevD = 0; prevD < 3; prevD++) {
+                        if (d == prevD) continue;
+                        dp[i][j][d] = Math.min(dp[i][j][d], dp[i - 1][prevJ][prevD] + map[i][j]);
+                    }
+                }
+            }
+        }
+
+        int answer = INF;
+        for (int j = 0; j < M; j++) {
+            for (int d = 0; d < 3; d++) {
+                answer = Math.min(answer, dp[N - 1][j][d]);
+            }
+        }
+
+        System.out.println(answer);
+    }
+}
