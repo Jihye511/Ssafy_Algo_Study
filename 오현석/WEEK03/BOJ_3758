@@ -1,0 +1,76 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static class Team implements Comparable<Team> {
+        int id;
+        int[] problems;
+        int submitCount;
+        int lastSubmitTime;
+        int totalScore;
+
+        public Team(int id, int k) {
+            this.id = id;
+            this.problems = new int[k + 1]; 
+        }
+
+        public void submit(int problemNum, int score, int time) {
+            problems[problemNum] = Math.max(problems[problemNum], score);
+            submitCount++;
+            lastSubmitTime = time;
+        }
+
+        public void calculateTotalScore() {
+            totalScore = Arrays.stream(problems).sum();
+        }
+
+        @Override
+        public int compareTo(Team o) {
+            if (this.totalScore != o.totalScore)
+                return o.totalScore - this.totalScore;
+            if (this.submitCount != o.submitCount)
+                return this.submitCount - o.submitCount;
+            return this.lastSubmitTime - o.lastSubmitTime;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+
+        while (T-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken()); 
+            int k = Integer.parseInt(st.nextToken()); 
+            int t = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+
+            Team[] teams = new Team[n + 1];
+            for (int i = 1; i <= n; i++) {
+                teams[i] = new Team(i, k);
+            }
+
+            for (int time = 0; time < m; time++) {
+                st = new StringTokenizer(br.readLine());
+                int i = Integer.parseInt(st.nextToken()); 
+                int j = Integer.parseInt(st.nextToken()); 
+                int s = Integer.parseInt(st.nextToken()); 
+                teams[i].submit(j, s, time);
+            }
+
+            for (int i = 1; i <= n; i++) {
+                teams[i].calculateTotalScore();
+            }
+
+            List<Team> ranking = Arrays.asList(teams).subList(1, n + 1);
+            Collections.sort(ranking);
+
+            for (int rank = 0; rank < ranking.size(); rank++) {
+                if (ranking.get(rank).id == t) {
+                    System.out.println(rank + 1);
+                    break;
+                }
+            }
+        }
+    }
+}
