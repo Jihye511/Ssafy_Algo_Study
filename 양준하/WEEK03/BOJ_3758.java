@@ -1,11 +1,7 @@
 package 양준하.WEEK03;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BOJ_3758 {
     static int T;
