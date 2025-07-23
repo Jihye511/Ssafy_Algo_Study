@@ -1,0 +1,32 @@
+package 양준하.WEEK03;
+
+import java.io.*;
+import java.util.*;
+
+public class BOJ_19637 {
+    static int N, M;
+    static TreeMap<Integer,String> map;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        map = new TreeMap<>();
+
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            String title = st.nextToken();
+            int limit = Integer.parseInt(st.nextToken());
+            map.putIfAbsent(limit, title);
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < M; i++) {
+            int power = Integer.parseInt(br.readLine());
+            sb.append(map.ceilingEntry(power).getValue()).append("\n");
+        }
+        System.out.print(sb);
+    }
+}
