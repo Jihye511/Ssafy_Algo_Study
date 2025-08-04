@@ -1,5 +1,3 @@
-package 양준하.WEEK03;
-
 import java.io.*;
 
 public class BOJ_20310 {

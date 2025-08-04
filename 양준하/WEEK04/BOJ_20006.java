@@ -1,5 +1,3 @@
-package 양준하.WEEK04;
-
 import java.io.*;
 import java.util.*;
 
