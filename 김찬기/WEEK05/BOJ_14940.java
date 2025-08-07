@@ -3,7 +3,7 @@ package WEEK05;
 import java.io.*;
 import java.util.*;
 
-public class WEEK_14940 {
+public class BOJ_14940 {
 
     static class Node {
         int r;
