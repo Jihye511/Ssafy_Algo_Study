@@ -32,9 +32,11 @@ public class BOJ_2531 {
         for (int i = 1; i < N; ++i) {
             int idx = (N+i-K) % N;
             --type[sushi[idx]];
+
             if (type[sushi[idx]] == 0) {
                 set.remove(sushi[idx]);
             }
+
             set.add(C);
             set.add(sushi[i]);
             ++type[sushi[i]];
