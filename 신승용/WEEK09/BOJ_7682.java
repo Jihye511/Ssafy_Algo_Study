@@ -1,4 +1,4 @@
-package 신승용.WEEK08;
+package 신승용.WEEK09;
 
 import java.io.BufferedReader;
 import java.io.IOException;
