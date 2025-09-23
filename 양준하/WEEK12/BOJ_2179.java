@@ -9,19 +9,19 @@ public class BOJ_2179 {
 
         N = Integer.parseInt(br.readLine());
         words = new String[N];
-        for (int i = 0; i < N; i += 1) {
+        for (int i = 0; i < N; i++) {
             words[i] = br.readLine();
         }
 
-        int bestL = -1;
+        int bestL = 0;
         int ansI = 0;
         int ansJ = 1;
 
-        for (int i = 0; i < N; i += 1) {
-            for (int j = i + 1; j < N; j += 1) {
+        for (int i = 0; i < N; i++) {
+            for (int j = i + 1; j < N; j++) {
                 int curL = Math.min(words[i].length(), words[j].length());
                 int cur = 0;
-                for (int k = 0; k < curL; k += 1) {
+                for (int k = 0; k < curL; k++) {
                     if (words[i].charAt(k) != words[j].charAt(k)) break;
                     cur += 1;
                 }
