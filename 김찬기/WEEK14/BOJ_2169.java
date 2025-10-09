@@ -7,9 +7,6 @@ public class BOJ_2169 {
 
     static int N, M;
     static int[][] map;
-    static int[] dr = {0, 1, 0};
-    static int[] dc = {1, 0, -1};
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
