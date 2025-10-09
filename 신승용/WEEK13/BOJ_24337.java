@@ -20,7 +20,7 @@ public class BOJ_24337 {
         int[] ans = new int[N];
         int idx = 0;
         int tallest = Math.max(a, b);
-        int k = N - (a + b - 1); // 채워야 할 1의 개수
+        int k = N - (a + b - 1);
 
         if (a == 1) {
             ans[idx++] = tallest;
