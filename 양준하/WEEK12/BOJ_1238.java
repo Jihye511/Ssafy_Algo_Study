@@ -2,95 +2,73 @@ import java.io.*;
 import java.util.*;
 
 public class BOJ_1238 {
-    static int R, C;
-    static char[][] map;
-    static int[][] fireTime;
-    static int[][] dist;
-    static int[] dx = {-1, 1, 0, 0};
-    static int[] dy = {0, 0, -1, 1};
+    static int N, M, X;
+    static ArrayList<Edge>[] g, rg;
+
+    static class Edge {
+        int to, w;
+        Edge(int to, int w) { 
+            this.to = to; 
+            this.w = w; 
+        }
+    }
+
+    static int[] dijkstra(ArrayList<Edge>[] graph, int s) {
+        int[] dist = new int[N + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        dist[s] = 0;
+        pq.offer(new int[]{s, 0});
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int v = cur[0];
+            int d = cur[1];
+            if (d > dist[v]) continue;
+
+            for (Edge e : graph[v]) {
+                int nd = d + e.w;
+                if (nd < dist[e.to]) {
+                    dist[e.to] = nd;
+                    pq.offer(new int[]{e.to, nd});
+                }
+            }
+        }
+        return dist;
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        R = Integer.parseInt(st.nextToken());
-        C = Integer.parseInt(st.nextToken());
 
-        map = new char[R][C];
-        fireTime = new int[R][C];
-        dist = new int[R][C];
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        X = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < R; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < C; j++) {
-                map[i][j] = line.charAt(j);
-                fireTime[i][j] = Integer.MAX_VALUE;
-                dist[i][j] = -1;
-            }
+        g = new ArrayList[N + 1];
+        rg = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) {
+            g[i] = new ArrayList<>();
+            rg[i] = new ArrayList<>();
         }
 
-        ArrayDeque<int[]> fq = new ArrayDeque<>();
-        ArrayDeque<int[]> jq = new ArrayDeque<>();
-        int jx = -1, jy = -1;
-
-        for (int i = 0; i < R; i++) {
-            for (int j = 0; j < C; j++) {
-                if (map[i][j] == 'F') {
-                    fq.offer(new int[]{i, j});
-                    fireTime[i][j] = 0;
-                } else if (map[i][j] == 'J') {
-                    jx = i; jy = j;
-                }
-            }
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int t = Integer.parseInt(st.nextToken());
+            g[a].add(new Edge(b, t));   // 정방향
+            rg[b].add(new Edge(a, t));  // 역방향 (i -> X 계산용)
         }
 
-        while (!fq.isEmpty()) {
-            int[] cur = fq.poll();
-            int x = cur[0];
-            int y = cur[1];
-            for (int d = 0; d < 4; d++) {
-                int nx = x + dx[d];
-                int ny = y + dy[d];
-                if (nx < 0 || ny < 0 || nx >= R || ny >= C) continue;
-                if (map[nx][ny] == '#') continue;
-                if (fireTime[nx][ny] != Integer.MAX_VALUE) continue;
-                fireTime[nx][ny] = fireTime[x][y] + 1;
-                fq.offer(new int[]{nx, ny});
-            }
+        int[] distFromX = dijkstra(g, X);   // X -> i
+        int[] distToX = dijkstra(rg, X);  // i -> X
+
+        int ans = 0;
+        for (int i = 1; i <= N; i++) {
+            ans = Math.max(ans, distFromX[i] + distToX[i]);
         }
 
-        jq.offer(new int[]{jx, jy});
-        dist[jx][jy] = 0;
-
-        if (jx == 0 || jy == 0 || jx == R - 1 || jy == C - 1) {
-            System.out.println(1);
-            return;
-        }
-
-        while (!jq.isEmpty()) {
-            int[] cur = jq.poll();
-            int x = cur[0];
-            int y = cur[1];
-            int t = dist[x][y];
-
-            for (int d = 0; d < 4; d++) {
-                int nx = x + dx[d];
-                int ny = y + dy[d];
-                if (nx < 0 || ny < 0 || nx >= R || ny >= C) {
-                    System.out.println(t + 1);
-                    return;
-                }
-
-                if (map[nx][ny] == '#') continue;
-                if (dist[nx][ny] != -1) continue;
-                int nt = t + 1;
-
-                if (nt >= fireTime[nx][ny]) continue;
-
-                dist[nx][ny] = nt;
-                jq.offer(new int[]{nx, ny});
-            }
-        }
-
-        System.out.println("IMPOSSIBLE");
+        System.out.println(ans);
     }
 }
