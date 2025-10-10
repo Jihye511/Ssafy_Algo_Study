@@ -9,18 +9,17 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
  
-class Jewelry {
-    int mass;
-    int value;
- 
-    Jewelry(int mass, int value) {
-        this.mass = mass;
-        this.value = value;
-    }
-}
- 
 public class Main {
- 
+	static class Jewelry {
+	    int mass;
+	    int value;
+	 
+	    Jewelry(int mass, int value) {
+	        this.mass = mass;
+	        this.value = value;
+	    }
+	}
+	
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
