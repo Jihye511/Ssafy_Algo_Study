@@ -1,74 +1,57 @@
 package Baekjoon.WEEK14;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
- 
-public class Main {
-	static class Jewelry {
-	    int mass;
-	    int value;
-	 
-	    Jewelry(int mass, int value) {
-	        this.mass = mass;
-	        this.value = value;
-	    }
-	}
-	
+
+public class BOJ_1202 {
+    static int N, M;
+    static class Jewel implements Comparable<Jewel> {
+        int m, v;
+        Jewel(int m, int v) {
+            this.m = m;
+            this.v = v;
+        }
+        public int compareTo(Jewel o) {
+            return Integer.compare(this.m, o.m);
+        }
+
+    }
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
- 
-        Jewelry[] jewelries = new Jewelry[N];
-        for (int i = 0; i < N; i++) {
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        long ans = 0;
+        Jewel[] jewels = new Jewel[N];
+        int[] bags = new int[M];
+        for (int i=0; i<N; i++) {
             st = new StringTokenizer(br.readLine());
-            int m = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
- 
-            jewelries[i] = new Jewelry(m, v);
+            jewels[i] = new Jewel(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
         }
-        Arrays.sort(jewelries, new Comparator<Jewelry>() {
- 
-            @Override
-            public int compare(Jewelry o1, Jewelry o2) {
-                if (o1.mass == o2.mass) {
-                    return o2.value - o1.value;
-                }
-                return o1.mass - o2.mass;
-            }
- 
-        });
- 
-        int[] bags = new int[K];
-        for (int i = 0; i < K; i++) {
+
+        for (int i=0; i<M; i++) {
             bags[i] = Integer.parseInt(br.readLine());
         }
+
+        Arrays.sort(jewels);
         Arrays.sort(bags);
- 
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
-        long ans = 0;
-        for (int i = 0, j = 0; i < K; i++) {
-            while (j < N && jewelries[j].mass <= bags[i]) {
-                pq.offer(jewelries[j++].value);
+
+        PriorityQueue<Integer> que = new PriorityQueue<>(Collections.reverseOrder());
+        int c=0;
+        for (int i=0; i<M; i++) {
+            while (c<N && jewels[c].m <= bags[i]) {
+                que.add(jewels[c++].v);
             }
-            
-            if (!pq.isEmpty()) {
-                ans += pq.poll();
-            }
+            if (!que.isEmpty())
+                ans += que.poll();
         }
- 
-        bw.write(ans + "\n");
-        bw.flush();
-        bw.close();
-        br.close();
+
+        System.out.println(ans);
     }
- 
 }
