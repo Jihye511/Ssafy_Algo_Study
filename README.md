@@ -11,7 +11,17 @@ SSAFY 13th 알고리즘 스터디
 ## 🗓 일정표
 - 문제 이름 클릭하면 문제 페이지로 이동합니다.
 
+[🗓날짜별 문제 정리 ver2.](https://seasoned-peripheral-395.notion.site/ver2-290aa43d3dea80a6ae2acf08ce23ff87?source=copy_link)
+
+<details>
+<summary>문제 ver1.</summary>
+<div markdown="1">
+
 [🗓날짜별 문제 정리](https://seasoned-peripheral-395.notion.site/22aaa43d3dea805392adca1bb175d53c?source=copy_link)
+
+</div>
+</details>
+
 
 </br>
 
