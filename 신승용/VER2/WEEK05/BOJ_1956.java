@@ -52,6 +52,6 @@ public class BOJ_1956 {
             }
         }
 
-        System.out.println(answer == INF ? -1 : answer);
+        System.out.println(answer==INF?-1:answer);
     }
 }
